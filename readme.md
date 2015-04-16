@@ -1,7 +1,7 @@
-# The Art of Node
+# The Art of Node Audio Handbook
 ## An introduction to Node.js
 
-This document is intended for readers who know at least a little bit of a couple of things:
+This audio handbook is intended for listeners who know at least a little bit about a couple of things:
 
 - a scripting language like JavaScript, Ruby, Python, Perl, etc. If you aren't a programmer yet then it is probably easier to start by reading [JavaScript for Cats](http://jsforcats.com/). :cat2:
 - git and github. These are the open source collaboration tools that people in the node community use to share modules. You just need to know the basics. Here are three great intro tutorials: [1](http://skli.se/2012/09/22/introduction-to-git/), [2](http://ericsteinborn.com/github-for-cats/#/), [3](http://opensourcerer.diy.org/)
@@ -24,7 +24,7 @@ This short book is a work in progress. If you like it then please **give me a do
 
 ## Learn node interactively
 
-In addition to reading this guide it's super important to also bust out your favorite text editor and actually write some node code. I always find that when I just read some code in a book it never really clicks, but learning by writing code is a good way to grasp new programming concepts.
+In addition to listening to this guide it's super important to also bust out your favorite text editor and actually write some node code. I always find that when I just read some code in a book it never really clicks, but learning by writing code is a good way to grasp new programming concepts.
 
 ### NodeSchool.io
 
@@ -48,11 +48,9 @@ learnyounode
 
 Node.js is an open source project designed to help you write JavaScript programs that talk to networks, file systems or other I/O (input/output, reading/writing) sources. That's it! It is just a simple and stable I/O platform that you are encouraged to build modules on top of.
 
-What are some examples of I/O? Here is a diagram of an application that I made with node that shows many I/O sources:
+What are some examples of I/O? You might use node to talk to a web browser or mobile app over web sockets or JSON over HTTP, with Amazon S3, a server filesystem, a caching proxy, Twitter and Facebook APIs, Apple Push Notifications, or databases like Couch DB, Redis, or MySQL.
 
-![server diagram](server-diagram.png)
-
-If you don't understand all of the different things in the diagram it is completely okay. The point is to show that a single node process (the hexagon in the middle) can act as the broker between all of the different I/O endpoints (orange and purple represent I/O).
+If you don't understand all of these things it is completely okay. The point is to show that a single node process can act as the broker between all of these different I/O endpoints.
 
 Usually building these kinds of systems is either:
 
@@ -65,13 +63,13 @@ Node isn't either of the following:
 
   - A web framework (like Rails or Django, though it can be used to make such things)
   - A programming language (it uses JavaScript but node isn't its own language)
-  
+
 Instead, node is somewhere in the middle. It is:
 
   - Designed to be simple and therefore relatively easy to understand and use
   - Useful for I/O based programs that need to be fast and/or handle lots of connections
-  
-At a lower level, node can be described as a tool for writing two major types of programs: 
+
+At a lower level, node can be described as a tool for writing two major types of programs:
 
   - Network programs using the protocols of the web: HTTP, TCP, UDP, DNS and SSL
   - Programs that read and write data to the filesystem or local processes/memory
@@ -84,12 +82,6 @@ What is an "I/O based program"? Here are some common I/O sources:
   - Files (image resizer, video editor, internet radio)
 
 Node does I/O in a way that is [asynchronous](http://en.wikipedia.org/wiki/Asynchronous_I/O) which lets it handle lots of different things simultaneously. For example, if you go down to a fast food joint and order a cheeseburger they will immediately take your order and then make you wait around until the cheeseburger is ready. In the meantime they can take other orders and start cooking cheeseburgers for other people. Imagine if you had to wait at the register for your cheeseburger, blocking all other people in line from ordering while they cooked your burger! This is called **blocking I/O** because all I/O (cooking cheeseburgers) happens one at a time. Node, on the other hand, is **non-blocking**, which means it can cook many cheeseburgers at once.
-
-Here are some fun things made easy with node thanks to its non-blocking nature:
-  
-  - Control [flying quadcopters](http://nodecopter.com)
-  - Write IRC chat bots
-  - Create [walking biped robots](http://www.youtube.com/watch?v=jf-cEB3U2UQ)
 
 ## Core modules
 
@@ -107,7 +99,11 @@ This is the most important topic to understand if you want to understand how to 
 
 Callbacks are functions that are executed asynchronously, or at a later time. Instead of the code reading top to bottom procedurally, async programs may execute different functions at different times based on the order and speed that earlier functions like http requests or file system reads happen.
 
-The difference can be confusing since determining if a function is asynchronous or not depends a lot on context. Here is a simple synchronous example, meaning you can read the code top to bottom just like a book:
+The difference can be confusing since determining if a function is asynchronous or not depends a lot on context.
+
+**TODO: Figure out how to handle code examples.**
+
+Here is a simple synchronous example, meaning you can read the code top to bottom just like a book:
 
 ```js
 var myNumber = 1
@@ -314,7 +310,7 @@ var chatClient = require('my-chat-client').connect()
 
 chatClient.on('connect', function() {
   // have the UI show we are connected
-}) 
+})
 
 chatClient.on('connectionError', function() {
   // show error to the user
@@ -347,7 +343,7 @@ function storeMessage(message) {
 
 ## Streams
 
-Early on in the node project the file system and network APIs had their own separate patterns for dealing with streaming I/O. For example, files in a file system have things called 'file descriptors' so the `fs` module had to have extra logic to keep track of these things whereas the network modules didn't have such a concept. Despite minor differences in semantics like these, at a fundamental level both groups of code were duplicating a lot of functionality when it came to reading data in and out. The team working on node realized that it would be confusing to have to learn two sets of semantics to essentially do the same thing so they made a new API called the `Stream` and made all the network and file system code use it. 
+Early on in the node project the file system and network APIs had their own separate patterns for dealing with streaming I/O. For example, files in a file system have things called 'file descriptors' so the `fs` module had to have extra logic to keep track of these things whereas the network modules didn't have such a concept. Despite minor differences in semantics like these, at a fundamental level both groups of code were duplicating a lot of functionality when it came to reading data in and out. The team working on node realized that it would be confusing to have to learn two sets of semantics to essentially do the same thing so they made a new API called the `Stream` and made all the network and file system code use it.
 
 The whole point of node is to make it easy to deal with file systems and networks so it made sense to have one pattern that was used everywhere. The good news is that most of the patterns like these (there are only a few anyway) have been figured out at this point and it is very unlikely that node will change that much in the future.
 
@@ -356,8 +352,6 @@ There are already two great resources that you can use to learn about node strea
 ### Stream Handbook
 
 [stream-handbook](https://github.com/substack/stream-handbook#introduction) is a guide, similar to this one, that contains a reference for everything you could possibly need to know about streams.
-
-[![stream-handbook](stream-handbook.png)](https://github.com/substack/stream-handbook)
 
 ## Modules
 
